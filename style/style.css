@@ -45,6 +45,7 @@ button {
   border-radius: 20px;
   font-size: 32px;
   margin-top: 8px;
+  visibility: hidden;
 }
 
 .gameScore {
@@ -57,6 +58,7 @@ button {
   border-radius: 50%;
   color: white;
   margin-top: 8px;
+  visibility: hidden;
 }
 
 .gameField {
