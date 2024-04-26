@@ -7,6 +7,7 @@ const gameScore = document.querySelector('.gameScore');
 const CARROT_SIZE = 80;
 const CARROT_COUNT = 5;
 const BUG_COUNT = 5;
+const GAME_DURATION_SEC = 5;
 
 let started = false;
 let score = 0;
@@ -42,8 +43,24 @@ function showTimerAndScore() {
 }
 
 function startGameTimer() {
-  setInterval(() => {}, 1000);
+  let remainSecond = GAME_DURATION_SEC;
+  updateTimerText(remainSecond);
+
+  timer = setInterval(() => {
+    if (remainSecond === 0) {
+      clearInterval(timer);
+      return;
+    }
+    updateTimerText(--remainSecond);
+  }, 1000);
 }
+
+function updateTimerText(time) {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  gameTimer.innerText = `${minutes}:${seconds}`;
+}
+console.log('test::', Math.floor(5 / 60));
 
 function initGame() {
   field.innerHTML = '';
