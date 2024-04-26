@@ -54,11 +54,15 @@ function stopSound(sound) {
 }
 
 function finishGame(win) {
-  playSound(winSound);
+  if (win === true) {
+    playSound(winSound);
+  }
+  stopSound(bgSound);
   started = false;
   startButton.classList.add('btnHidden');
   popUpText.innerText = win ? 'YOU WON ' : 'YOU LOSE ';
   popUp.classList.remove('popUp--hide');
+  stopGameTimer(timer);
 }
 
 function updateScoreBoard() {
@@ -75,6 +79,7 @@ startButton.addEventListener('click', () => {
 
 popUpRefresh.addEventListener('click', () => {
   startGame();
+  score = 0;
   popUp.classList.add('popUp--hide');
   showStartButton();
 });
@@ -120,8 +125,10 @@ function startGameTimer() {
   timer = setInterval(() => {
     if (remainSecond === 0) {
       clearInterval(timer);
-      finishGame(CARROT_COUNT === score);
-      return;
+      if (started) {
+        finishGame(CARROT_COUNT === score);
+        return;
+      }
     }
 
     updateTimerText(--remainSecond);
@@ -144,12 +151,7 @@ function updateTimerText(time) {
 
 function initGame() {
   field.innerHTML = '';
-  // const imgs = field.querySelectorAll('img');
-  // imgs.forEach((img) => {
-  //   img.remove();
-  // });
   gameScore.innerText = CARROT_COUNT;
-  // 벌레와 당근을 생성한 뒤 field에 추가해줌
   addItem('carrot', CARROT_COUNT, 'img/carrot.png');
   addItem('bug', BUG_COUNT, 'img/bug.png');
 }
