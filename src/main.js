@@ -3,6 +3,9 @@ const fieldRect = field.getBoundingClientRect();
 const startButton = document.querySelector('.gameButton');
 const gameTimer = document.querySelector('.gameTimer');
 const gameScore = document.querySelector('.gameScore');
+const popUp = document.querySelector('.popUp');
+const popUpText = popUp.querySelector('.popUpMessage');
+const popUpRefresh = popUp.querySelector('.popUpRefresh');
 
 const CARROT_SIZE = 80;
 const CARROT_COUNT = 5;
@@ -22,14 +25,20 @@ startButton.addEventListener('click', () => {
   started = !started;
 });
 
-function startGame(params) {
+function startGame() {
   initGame();
   showStopButton();
   showTimerAndScore();
   startGameTimer();
 }
 
-function stopGame(params) {}
+function stopGame() {
+  stopGameTimer();
+  startButton.classList.add('btnHidden');
+  popUp.classList.remove('popUp--hide');
+
+  popUpText.innerText = 'Replay?';
+}
 
 function showStopButton() {
   const icon = startButton.querySelector('.fa-play');
@@ -55,12 +64,15 @@ function startGameTimer() {
   }, 1000);
 }
 
+function stopGameTimer() {
+  clearInterval(timer);
+}
+
 function updateTimerText(time) {
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
   gameTimer.innerText = `${minutes}:${seconds}`;
 }
-console.log('test::', Math.floor(5 / 60));
 
 function initGame() {
   field.innerHTML = '';
@@ -78,7 +90,8 @@ function addItem(className, count, imgPath) {
   const x1 = 0;
   const y1 = 0;
   const x2 = fieldRect.width - CARROT_SIZE;
-  const y2 = fieldRect.height - CARROT_SIZE;
+  const y2 = fieldRect.height - CARROT_SIZE - 40;
+
   for (let i = 0; i < count; i++) {
     const item = document.createElement('img');
     item.setAttribute('class', className);
@@ -93,7 +106,7 @@ function addItem(className, count, imgPath) {
 }
 
 function randomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min));
 }
 
 function startTimer() {}

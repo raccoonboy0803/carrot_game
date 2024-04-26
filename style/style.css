@@ -36,6 +36,9 @@ button {
 .gameButton:hover {
   transform: scale(1.1);
 }
+.btnHidden {
+  visibility: hidden;
+}
 
 .gameTimer {
   text-align: center;
@@ -82,7 +85,8 @@ button {
 }
 
 .popUp--hide {
-  display: none;
+  /* display: none; */
+  visibility: hidden;
 }
 
 .popUpRefresh {
