@@ -10,7 +10,6 @@ const GAME_DURATION_SEC = 20;
 const gameBtn = document.querySelector('.gameButton');
 const timerIndicator = document.querySelector('.gameTimer');
 const gameScore = document.querySelector('.gameScore');
-const popUp = document.querySelector('.popUp');
 
 let started = false;
 let score = 0;
@@ -36,7 +35,6 @@ function onItemClick(item) {
     }
   } else if (item === 'bug') {
     finishGame(false);
-    stopGame();
   }
 }
 
@@ -116,10 +114,6 @@ function updateTimerText(time) {
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
   timerIndicator.innerHTML = `${minutes}:${seconds}`;
-}
-
-function hidePopUp() {
-  popUp.classList.add('popUp--hide');
 }
 
 function initGame() {
